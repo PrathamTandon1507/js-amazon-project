@@ -58,7 +58,7 @@ document.querySelector('.js-products-grid').innerHTML = prodHTML; //display the 
 document.querySelectorAll('.js-button')
   .forEach((item) => {
     item.addEventListener('click', () => { //on click, increase the cart quantity
-      
+
       const productId = item.dataset.productId; //kebab case -> camel case IMPORTANT**
       let isPresent;
       cart.forEach((val) =>{ //check if element is already present in cart
@@ -75,6 +75,11 @@ document.querySelectorAll('.js-button')
           quantity : 1
         });
       }
-      console.log(cart);
+
+      let cartQuant = 0;
+      cart.forEach((cartItem) => {
+        cartQuant += cartItem.quantity;
+      })
+      document.querySelector('.js-quantity').innerHTML = cartQuant;
     }) 
   });

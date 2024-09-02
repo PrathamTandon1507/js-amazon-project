@@ -1,13 +1,13 @@
 import {cart} from '../data/cart.js';
 import {products} from '../data/products.js';
+import { formatCurrency } from './utils/money.js';
 
 let cartHTML = '';
-
+let i=0;
 cart.forEach((cartItem) => {
     const productId = cartItem.productId;
 
     let sameProduct;
-
     products.forEach((prod) => {
         if(prod.id === productId){
             sameProduct = prod;
@@ -29,7 +29,7 @@ cart.forEach((cartItem) => {
                   ${sameProduct.name}
                 </div>
                 <div class="product-price">
-                  $${(sameProduct.priceCents/100).toFixed(2)}
+                  $${formatCurrency(sameProduct.priceCents)}
                 </div>
                 <div class="product-quantity">
                   <span>
@@ -51,7 +51,7 @@ cart.forEach((cartItem) => {
                 <div class="delivery-option">
                   <input type="radio" checked
                     class="delivery-option-input"
-                    name="delivery-option-1">
+                    name="delivery-option-${productId}">
                   <div>
                     <div class="delivery-option-date">
                       Tuesday, June 21
@@ -64,7 +64,7 @@ cart.forEach((cartItem) => {
                 <div class="delivery-option">
                   <input type="radio"
                     class="delivery-option-input"
-                    name="delivery-option-1">
+                    name="delivery-option-${productId}"> 
                   <div>
                     <div class="delivery-option-date">
                       Wednesday, June 15
@@ -77,7 +77,7 @@ cart.forEach((cartItem) => {
                 <div class="delivery-option">
                   <input type="radio"
                     class="delivery-option-input"
-                    name="delivery-option-1">
+                    name="delivery-option-${productId}">
                   <div>
                     <div class="delivery-option-date">
                       Monday, June 13
@@ -90,6 +90,7 @@ cart.forEach((cartItem) => {
               </div>
             </div>
           </div>`;
+          //NOTE : The radio selectors need to have different names so that we can use them uniquely for each product [same name = 1 common checkbox]
 });
 
 document.querySelector('.js-order-summary').innerHTML = cartHTML;

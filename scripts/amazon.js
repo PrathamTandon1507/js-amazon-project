@@ -41,24 +41,23 @@ products.forEach((prod) => { //products is an array of objects containing info a
 
           <div class="product-spacer"></div>
 
-          <div class="added-to-cart">
+          <div class="added-to-cart js-added-to-cart-${prod.id}">
             <img src="images/icons/checkmark.png">
             Added
           </div>
 
           <button class="add-to-cart-button
-          button-primary js-button"
+          button-primary js-button "
           data-product-id = "${prod.id}"> 
             Add to Cart
           </button>
         </div>` //data-product-id stores product id
 })
-
+let timeoutID; //maintain the value of timeoutID between clicks, define it here so it doesnt get redefined everytime
 document.querySelector('.js-products-grid').innerHTML = prodHTML; //display the html using DOM
 document.querySelectorAll('.js-button')
   .forEach((item) => {
     item.addEventListener('click', () => { //on click
-
       const productId = item.dataset.productId; //kebab case -> camel case IMPORTANT**
       let isPresent;
       cart.forEach((val) =>{ //check if element is already present in cart
@@ -78,11 +77,17 @@ document.querySelectorAll('.js-button')
           quantity : quant
         });
       }
-
+      const displayAdd = document.querySelector(`.js-added-to-cart-${productId}`);
+      displayAdd.classList.add('show');
+      clearTimeout(timeoutID);
+      timeoutID = setTimeout(() => {
+        displayAdd.classList.remove('show')
+      }, 2000);
       let cartQuant = 0;
       cart.forEach((cartItem) => {
         cartQuant += cartItem.quantity;
       })
       document.querySelector('.js-quantity').innerHTML = cartQuant;
-    }) 
+      
+    })
   });

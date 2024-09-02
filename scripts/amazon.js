@@ -24,9 +24,9 @@ products.forEach((prod) => { //products is an array of objects containing info a
             $${(prod.priceCents/100).toFixed(2)}
           </div>
 
-          <div class="product-quantity-container">
-            <select>
-              <option selected value="1">1</option>
+          <div class="js-product-quantity-container">
+            <select class="js-select-item">
+              <option value="1">1</option>
               <option value="2">2</option>
               <option value="3">3</option>
               <option value="4">4</option>
@@ -57,7 +57,7 @@ products.forEach((prod) => { //products is an array of objects containing info a
 document.querySelector('.js-products-grid').innerHTML = prodHTML; //display the html using DOM
 document.querySelectorAll('.js-button')
   .forEach((item) => {
-    item.addEventListener('click', () => { //on click, increase the cart quantity
+    item.addEventListener('click', () => { //on click
 
       const productId = item.dataset.productId; //kebab case -> camel case IMPORTANT**
       let isPresent;
@@ -66,13 +66,16 @@ document.querySelectorAll('.js-button')
           isPresent = val;
         } 
       });
+      const productContainer = item.closest('.product-container'); //select current product from product container
+      const quant = Number(productContainer.querySelector('.js-select-item').value); //select particular attribute of current product
+
       if(isPresent){
-        isPresent.quantity +=1; //increment quantity if already present
+        isPresent.quantity += quant; //increment quantity if already present
       }
       else{
         cart.push({        //add to cart if not present
           productId: productId,
-          quantity : 1
+          quantity : quant
         });
       }
 

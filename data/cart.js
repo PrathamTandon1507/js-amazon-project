@@ -32,7 +32,6 @@ export function addToCart(productId){
     }
     saveToLocStor();
 }
-
 export function removeCartItem(productId){
     const newCart = [];
     cart.forEach((cartItem) => {

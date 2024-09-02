@@ -1,4 +1,5 @@
 import {myCart as cart} from '../data/cart.js'; //.. to get out of current folder, then go to data/cart.js
+import {products} from '../data/products.js'
 
 let prodHTML ='';
 products.forEach((prod) => { //products is an array of objects containing info about all products

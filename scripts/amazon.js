@@ -55,12 +55,8 @@ products.forEach((prod) => { //products is an array of objects containing info a
           </button>
         </div>` //data-product-id stores product id
 })
-let timeoutID; //maintain the value of timeoutID between clicks, define it here so it doesnt get redefined everytime
-document.querySelector('.js-products-grid').innerHTML = prodHTML; //display the html using DOM
-document.querySelectorAll('.js-button')
-  .forEach((item) => {
-    item.addEventListener('click', () => { //on click
-      const productId = item.dataset.productId; //kebab case -> camel case IMPORTANT**
+
+function addToCart(productId){
       let isPresent;
       cart.forEach((val) =>{ //check if element is already present in cart
         if(val.productId === productId){
@@ -79,17 +75,33 @@ document.querySelectorAll('.js-button')
           quantity : quant
         });
       }
-      const displayAdd = document.querySelector(`.js-added-to-cart-${productId}`);
+}
+
+function updateCartQuantity(){
+  let cartQuant = 0;
+      cart.forEach((cartItem) => {
+        cartQuant += cartItem.quantity;
+      });
+      document.querySelector('.js-quantity').innerHTML = cartQuant;
+}
+
+function showAddedMessage(productId){
+  const displayAdd = document.querySelector(`.js-added-to-cart-${productId}`);
       displayAdd.classList.add('show');
       clearTimeout(timeoutID);
       timeoutID = setTimeout(() => {
         displayAdd.classList.remove('show')
       }, 2000);
-      let cartQuant = 0;
-      cart.forEach((cartItem) => {
-        cartQuant += cartItem.quantity;
-      })
-      document.querySelector('.js-quantity').innerHTML = cartQuant;
-      
+}
+
+let timeoutID; //maintain the value of timeoutID between clicks, define it here so it doesnt get redefined everytime
+document.querySelector('.js-products-grid').innerHTML = prodHTML; //display the html using DOM
+document.querySelectorAll('.js-button')
+  .forEach((cartItem) => {
+    cartItem.addEventListener('click', () => { //on click
+      const productId = cartItem.dataset.productId; //kebab case -> camel case IMPORTANT**
+      addToCart(productId);
+      updateCartQuantity();
+      showAddedMessage(productId);
     })
   });

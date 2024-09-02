@@ -1,4 +1,4 @@
-import {cart, removeCartItem} from '../data/cart.js';
+import {cart, removeCartItem, saveToLocStor} from '../data/cart.js';
 import {products} from '../data/products.js';
 import { formatCurrency } from './utils/money.js';
 
@@ -101,5 +101,6 @@ document.querySelectorAll('.js-delete-link')
             const productId = link.dataset.productId; 
             removeCartItem(productId);
             document.querySelector(`.js-cart-item-${productId}`).remove(); //delete the element from HTML
+            saveToLocStor();
         })
     });

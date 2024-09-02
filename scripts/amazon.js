@@ -25,7 +25,7 @@ products.forEach((prod) => { //products is an array of objects containing info a
           </div>
 
           <div class="js-product-quantity-container">
-            <select class="js-select-item">
+            <select class="js-select-item-${prod.id}">
               <option value="1">1</option>
               <option value="2">2</option>
               <option value="3">3</option>
@@ -66,8 +66,8 @@ document.querySelectorAll('.js-button')
           isPresent = val;
         } 
       });
-      const productContainer = item.closest('.product-container'); //select current product from product container
-      const quant = Number(productContainer.querySelector('.js-select-item').value); //select particular attribute of current product
+      //const productContainer = item.closest('.product-container'); //select current product from product container
+      const quant = Number(document.querySelector(`.js-select-item-${productId}`).value); //select particular attribute of current product
 
       if(isPresent){
         isPresent.quantity += quant; //increment quantity if already present

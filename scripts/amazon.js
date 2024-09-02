@@ -1,5 +1,6 @@
-let prodHTML ='';
+import {myCart as cart} from '../data/cart.js'; //.. to get out of current folder, then go to data/cart.js
 
+let prodHTML ='';
 products.forEach((prod) => { //products is an array of objects containing info about all products
     //Just add unique data for each image using objects, now you wont have to type all the html code for each element, you are generating this code using JS
     prodHTML +=  `<div class="product-container">

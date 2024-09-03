@@ -55,5 +55,5 @@ export function updateDeliveryOption(productId, deliveryOptionId){
     });
     
     isPresent.deliveryOptionId = deliveryOptionId; //update the cart's deliveryoption id so now it contains data for new delivery option picked
-    saveToLocStor();
+    saveToLocStor(); //because we are updating the cart
 }

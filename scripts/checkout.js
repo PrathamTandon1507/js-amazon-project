@@ -1,4 +1,4 @@
-import {cart, removeCartItem} from '../data/cart.js';
+import {cart, removeCartItem, updateDeliveryOption} from '../data/cart.js';
 import { deliveryOptions } from '../data/deliveryOptions.js';
 import {products} from '../data/products.js';
 import { formatCurrency } from './utils/money.js';
@@ -65,6 +65,7 @@ cart.forEach((cartItem) => {
             </div>
           </div>`;
           //NOTE : The radio selectors need to have different names so that we can use them uniquely for each product [same name = 1 common checkbox]
+
 });
 
 function deliveryOptionHTML(sameProduct, cartItem){
@@ -84,7 +85,10 @@ function deliveryOptionHTML(sameProduct, cartItem){
 
         const isChecked = deliveryOption.id === cartItem.deliveryOptionId;
         deliveryHTML +=
-        `<div class="delivery-option">
+        `<div class="delivery-option js-delivery-option"
+        data-product-id = ${sameProduct.id}
+        data-delivery-option-id = ${deliveryOption.id}
+        >
                   <input type="radio"
                   ${isChecked ? `checked` : ``}
                     class="delivery-option-input"
@@ -123,5 +127,11 @@ document.querySelectorAll('.js-delete-link')
         })
     });
 
-
-
+document.querySelectorAll('.js-delivery-option')
+    .forEach((element) =>{
+        element.addEventListener(('click'), () => {
+            const productId = element.dataset.productId;
+            const deliveryOptionId = element.dataset.deliveryOptionId;
+            updateDeliveryOption(productId,deliveryOptionId);
+        })
+    });

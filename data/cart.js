@@ -45,3 +45,15 @@ export function removeCartItem(productId){
     cart = newCart;
     saveToLocStor();
 }
+
+export function updateDeliveryOption(productId, deliveryOptionId){
+    let isPresent;
+    cart.forEach((val) =>{ //check if element is already present in cart
+      if(val.productId === productId){
+        isPresent = val;
+      } 
+    });
+    
+    isPresent.deliveryOptionId = deliveryOptionId; //update the cart's deliveryoption id so now it contains data for new delivery option picked
+    saveToLocStor();
+}

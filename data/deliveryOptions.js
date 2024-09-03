@@ -1,3 +1,14 @@
+export function getDeliveryOption(deliveryOptionId){
+    let sameDeliveryItem;
+
+        deliveryOptions.forEach((option) => {
+            if(option.id === deliveryOptionId){
+                sameDeliveryItem = option;
+            }
+        });
+    return sameDeliveryItem || deliveryOptionId[0]; //incase delivery item is not found return default value
+}
+
 export const deliveryOptions = [{
     id: '1',
     deliveryDays : 7,

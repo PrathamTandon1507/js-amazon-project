@@ -3,6 +3,7 @@ import { deliveryOptions } from '../../data/deliveryOptions.js';
 import {getProduct, products} from '../../data/products.js';
 import { formatCurrency } from '../utils/money.js';
 import dayjs from 'https://unpkg.com/dayjs@1.11.10/esm/index.js' //default export [when we want to only import one thing]
+import { renderItemPaymentSummary } from './paymentSummary.js';
 
 export function renderOrderSummary(){
     let cartHTML = '';
@@ -120,6 +121,7 @@ export function renderOrderSummary(){
                 removeCartItem(productId, totalItems);
                 document.querySelector('.js-checkout-count').innerHTML = `${totalItems} items`;
                 document.querySelector(`.js-cart-item-${productId}`).remove(); //delete the element from HTML
+                renderItemPaymentSummary(); //reduce amount whenever item is removed/deleted
             })
         });
 
@@ -130,6 +132,7 @@ export function renderOrderSummary(){
                 const deliveryOptionId = element.dataset.deliveryOptionId;
                 updateDeliveryOption(productId,deliveryOptionId);
                 renderOrderSummary(); //call itself recursively after calling update
+                renderItemPaymentSummary(); //update whenever deliveryOption is changed
             })
         });
     }

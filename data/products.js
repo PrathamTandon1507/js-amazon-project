@@ -33,6 +33,26 @@ class Product{
   getPrice(){
     return `$${formatCurrency(this.priceCents)}`;
   }
+
+  getExtraInfo(){
+    return '';
+  }
+}
+
+class Clothing extends Product{
+  sizeChartLink;
+  
+  constructor(productDetails){
+    super(productDetails); //calls constructor of parent class
+    this.sizeChartLink = productDetails.sizeChartLink;
+  }
+
+  getExtraInfo(){
+    // super.getExtraInfo() to call parent method
+    return `<a
+          href="${this.sizeChartLink}" target="_main" class="size-chart-link"> Size Chart
+          </a>`;
+  }
 }
 
 export const products = [
@@ -139,7 +159,9 @@ export const products = [
       "hoodies",
       "sweaters",
       "apparel"
-    ]
+    ],
+    type: "clothing",
+    sizeChartLink: "images/clothing-size-chart.png"
   },
   {
     id: "77919bbe-0e56-475b-adde-4f24dfed3a04",
@@ -695,5 +717,8 @@ export const products = [
     ]
   }
 ].map((productDetails) => {
+  if (productDetails.type === 'clothing'){
+    return new Clothing(productDetails);
+  }
   return new Product(productDetails); //each object is returned after being passed to the constructor
 });

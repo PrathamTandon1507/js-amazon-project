@@ -155,3 +155,10 @@
   padding: 8px;
   border-radius: 50px;
 }
+
+.size-chart-link{
+  margin-top: 7px;
+}
+.size-chart-link:hover{
+  color: rgb(186, 46, 46);
+}

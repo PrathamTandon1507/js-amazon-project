@@ -42,6 +42,8 @@ products.forEach((prod) => { //products is an array of objects containing info a
             </select>
           </div>
 
+          ${prod.getExtraInfo()} //polymorphism
+
           <div class="product-spacer"></div>
 
           <div class="added-to-cart js-added-to-cart-${prod.id}">

@@ -1,4 +1,4 @@
-import {cart, addToCart} from '../data/cart.js'; //.. to get out of current folder, then go to data/cart.js
+import {cart, addToCart, saveToLocStor, calculateCartQuantity} from '../data/cart.js'; //.. to get out of current folder, then go to data/cart.js
 import {products} from '../data/products.js'
 import { formatCurrency } from './utils/money.js';
 
@@ -58,12 +58,12 @@ products.forEach((prod) => { //products is an array of objects containing info a
 })
 
 function updateCartQuantity(){
-  let cartQuant = 0;
-      cart.forEach((cartItem) => {
-        cartQuant += cartItem.quantity;
-      });
-      document.querySelector('.js-quantity').innerHTML = cartQuant;
+  let cartQuant = calculateCartQuantity();
+
+  document.querySelector('.js-quantity').innerHTML = cartQuant;
 }
+
+updateCartQuantity();
 
 function showAddedMessage(productId){
   const displayAdd = document.querySelector(`.js-added-to-cart-${productId}`);

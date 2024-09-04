@@ -57,3 +57,21 @@ export function updateDeliveryOption(productId, deliveryOptionId){
     isPresent.deliveryOptionId = deliveryOptionId; //update the cart's deliveryoption id so now it contains data for new delivery option picked
     saveToLocStor(); //because we are updating the cart
 }
+
+export function calculateCartQuantity(){
+    let cartQuant = 0;
+      cart.forEach((cartItem) => {
+        cartQuant += cartItem.quantity;
+      });
+      return cartQuant;
+}
+
+export function getCartItem(productId){
+    let sameCartItem = ''
+    cart.forEach((cartItem) => {
+        if(cartItem.productId === productId){
+            sameCartItem = cartItem;
+        }
+    });
+    return sameCartItem;
+}

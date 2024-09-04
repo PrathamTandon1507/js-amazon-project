@@ -54,6 +54,23 @@ class Clothing extends Product{
           </a>`;
   }
 }
+/* built-in date class
+const date = new Date();
+console.log(date);
+console.log(date.toLocaleTimeString());
+
+const object2 = {
+  a: 4,
+  b: this.a //does not work because object has not been created
+}
+
+function logThis(){
+  console.log(this);
+}
+
+logThis(); 
+logThis.call('hello');
+*/
 
 export const products = [
   {

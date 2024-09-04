@@ -1,9 +1,10 @@
-import {calculateCartQuantity, cart, getCartItem, removeCartItem, saveToLocStor, updateDeliveryOption} from '../../data/cart.js'; //use 2 ../, first to get out of checkout, second to get out of scripts
+import {cart, getCartItem, removeCartItem, saveToLocStor, updateDeliveryOption} from '../../data/cart.js'; //use 2 ../, first to get out of checkout, second to get out of scripts
 import { deliveryOptions, getDeliveryOption } from '../../data/deliveryOptions.js';
 import {getProduct, products} from '../../data/products.js';
 import { formatCurrency } from '../utils/money.js';
 import dayjs from 'https://unpkg.com/dayjs@1.11.10/esm/index.js' //default export [when we want to only import one thing]
 import { renderItemPaymentSummary } from './paymentSummary.js';
+import { updateTotalItems } from './checkoutHeader.js';
 
 export function renderOrderSummary(){
     let cartHTML = '';
@@ -102,13 +103,6 @@ export function renderOrderSummary(){
     }
 
     document.querySelector('.js-order-summary').innerHTML = cartHTML;
-
-    function updateTotalItems(){
-        let totalItems = calculateCartQuantity();
-        document.querySelector('.js-checkout-count').innerHTML = `${totalItems} items`;
-        return totalItems;
-    }
-
     updateTotalItems();
     document.querySelectorAll('.js-delete-link') //necessary to include event listeners in the function because while rendering we need to ensure what is being added AND deleted
         .forEach((link) => {

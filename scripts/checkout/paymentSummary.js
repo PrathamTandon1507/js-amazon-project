@@ -62,7 +62,7 @@ export function renderItemPaymentSummary(){
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    cart: cart
+                    cart: cart //sending order info to backend
                 })
             });
             const order = await response.json(); //because response.json() is also a promise

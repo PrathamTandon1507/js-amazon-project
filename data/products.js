@@ -105,6 +105,18 @@ export function loadProducts(fun){ // this is a callback [function that will be 
   xhr.send(); //send request
 }
 
+export function loadCart(fun){ // this is a callback [function that will be called in the future]
+  const xhr = new XMLHttpRequest();
+
+  xhr.addEventListener('load', () => {
+    console.log('load cart');
+    fun();
+  });
+
+  xhr.open('GET', 'https://supersimplebackend.dev/cart'); //load products info from backend
+  xhr.send(); //send request
+}
+
 /* built-in date class
 const date = new Date();
 console.log(date);

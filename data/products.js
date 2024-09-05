@@ -101,9 +101,13 @@ export function loadProductsFetch(){
       return new Product(productDetails); //each object is returned after being passed to the constructor
     });
     console.log('load products');
+    }).catch((error)=>{
+      console.log('Unexpected error');
   });
   return promise;
 }
+
+
 /*
 loadProductsFetch().then(() => { //returns a promise so we can add new steps here too
   console.log('next step');
@@ -135,6 +139,9 @@ export function loadProducts(fun){ // this is a callback [function that will be 
     fun();
   });
 
+  xhr.addEventListener('error', (error) => {
+    console.log('Unexpected error');
+  })
   xhr.open('GET', 'https://supersimplebackend.dev/products'); //load products info from backend
   xhr.send(); //send request
 }

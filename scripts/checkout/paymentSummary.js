@@ -2,6 +2,7 @@ import {calculateCartQuantity, cart} from '../../data/cart.js';
 import { getDeliveryOption } from '../../data/deliveryOptions.js';
 import { getProduct } from '../../data/products.js';
 import { formatCurrency } from '../utils/money.js';
+import { addOrder } from '../../data/orders.js';
 
 export function renderItemPaymentSummary(){
     let totalItemAmount = 0;
@@ -66,16 +67,17 @@ export function renderItemPaymentSummary(){
                 })
             });
             const order = await response.json(); //because response.json() is also a promise
-
+            console.log(order);
             addOrder(order);
         }
-        catch{
-            console.log('Unexpected error in getting order');
+        catch(error){
+            console.log('Unexpected error in getting order', error);
         }
-
         window.location.href='orders.html'; //changed window location 
     });
 }
+
+
 
 
 

@@ -6,7 +6,7 @@ export function getDeliveryOption(deliveryOptionId){
                 sameDeliveryItem = option;
             }
         });
-    return sameDeliveryItem || deliveryOptionId[0]; //incase delivery item is not found return default value
+    return sameDeliveryItem; //incase delivery item is not found return default value
 }
 
 export const deliveryOptions = [{

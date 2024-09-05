@@ -35,7 +35,7 @@ class Product{
   }
 
   getExtraInfo(){
-    return '';
+    return ``;
   }
 }
 
@@ -46,31 +46,35 @@ class Clothing extends Product{
     super(productDetails); //calls constructor of parent class
     this.sizeChartLink = productDetails.sizeChartLink;
   }
-
   getExtraInfo(){
-    // super.getExtraInfo() to call parent method
     return `<a
-          href="${this.sizeChartLink}" target="_main" class="size-chart-link"> Size Chart
-          </a>`;
+          href="${this.sizeChartLink}" target="_main" class="size-chart-link"> 
+          Size Chart
+          </a>`
   }
 }
-/* built-in date class
-const date = new Date();
-console.log(date);
-console.log(date.toLocaleTimeString());
 
-const object2 = {
-  a: 4,
-  b: this.a //does not work because object has not been created
+class Appliance extends Product{
+  instructionsLink;
+  warrantyLink;
+
+  constructor(productDetails){
+    super(productDetails);
+    this.instructionsLink = productDetails.instructionsLink;
+    this.warrantyLink = productDetails.warrantyLink;
+  }
+  getExtraInfo(){
+    return `<a
+          href="${this.instructionsLink}" target="_main" class="appliance-instruction-link"> 
+          Instructions
+          </a>
+          <a
+          href="${this.warrantyLink}" target="_main" class="appliance-warranty-link"> 
+          Warranty
+          </a>`
+  }
 }
 
-function logThis(){
-  console.log(this);
-}
-
-logThis(); 
-logThis.call('hello');
-*/
 
 export const products = [
   {
@@ -132,7 +136,9 @@ export const products = [
       "toaster",
       "kitchen",
       "appliances"
-    ]
+    ],
+    instructionsLink: "images/appliance-instructions.png",
+    warrantyLink: "images/appliance-warranty.png"
   },
   {
     id: "3ebe75dc-64d2-4137-8860-1f5a963e534b",
@@ -319,7 +325,9 @@ export const products = [
       "water boiler",
       "appliances",
       "kitchen"
-    ]
+    ],
+    instructionsLink: "images/appliance-instructions.png",
+    warrantyLink: "images/appliance-warranty.png"
   },
   {
     id: "6b07d4e7-f540-454e-8a1e-363f25dbae7d",
@@ -624,7 +632,9 @@ export const products = [
       "coffeemakers",
       "kitchen",
       "appliances"
-    ]
+    ],
+    instructionsLink: "images/appliance-instructions.png",
+    warrantyLink: "images/appliance-warranty.png"
   },
   {
     id: "02e3a47e-dd68-467e-9f71-8bf6f723fdae",
@@ -684,7 +694,9 @@ export const products = [
       "food blenders",
       "kitchen",
       "appliances"
-    ]
+    ],
+    instructionsLink: "images/appliance-instructions.png",
+    warrantyLink: "images/appliance-warranty.png"
   },
   {
     id: "36c64692-677f-4f58-b5ec-0dc2cf109e27",
@@ -737,5 +749,33 @@ export const products = [
   if (productDetails.type === 'clothing'){
     return new Clothing(productDetails);
   }
+  else{
+    let tempProductDetails=''
+    let temp = productDetails.keywords 
+    temp.forEach((itemType) => {
+      if(itemType === 'appliances'){
+        tempProductDetails = itemType;
+      }
+    });
+    if(tempProductDetails) return new Appliance(productDetails);
+  }
   return new Product(productDetails); //each object is returned after being passed to the constructor
 });
+
+/* built-in date class
+const date = new Date();
+console.log(date);
+console.log(date.toLocaleTimeString());
+
+const object2 = {
+  a: 4,
+  b: this.a //does not work because object has not been created
+}
+
+function logThis(){
+  console.log(this);
+}
+
+logThis(); 
+logThis.call('hello');
+*/

@@ -156,9 +156,9 @@
   border-radius: 50px;
 }
 
-.size-chart-link{
+.size-chart-link, .appliance-instruction-link, .appliance-warranty-link{
   margin-top: 7px;
 }
-.size-chart-link:hover{
+.size-chart-link:hover, .appliance-instruction-link:hover, .appliance-warranty-link:hover{
   color: rgb(186, 46, 46);
 }

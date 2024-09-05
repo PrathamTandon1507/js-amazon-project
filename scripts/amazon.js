@@ -42,7 +42,7 @@ products.forEach((prod) => { //products is an array of objects containing info a
             </select>
           </div>
 
-          ${prod.getExtraInfo()} //polymorphism
+          ${prod.getExtraInfo()} 
 
           <div class="product-spacer"></div>
 
@@ -73,7 +73,7 @@ function showAddedMessage(productId){
       clearTimeout(timeoutID);
       timeoutID = setTimeout(() => {
         displayAdd.classList.remove('show')
-      }, 2000);
+      }, 800);
 }
 
 let timeoutID; //maintain the value of timeoutID between clicks, define it here so it doesnt get redefined everytime

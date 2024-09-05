@@ -1,18 +1,11 @@
 import { renderOrderSummary } from "./checkout/orderSummary.js";
 import { renderItemPaymentSummary } from "./checkout/paymentSummary.js";
-import { loadCart, loadProducts } from "../data/products.js";
+import { loadCartFetch, loadProductsFetch } from "../data/products.js";
 
 Promise.all([ //RUNS BOTH PROMISES AT THE SAME TIME
-    new Promise((resolve) => { //its like wait(), we wait till the process is finished then the code continues from resolve
-        loadProducts(() => {
-            resolve('V1'); //can pass parameters in resolve to be used in next step
-        });
-    }),
-    new Promise((resolve) => {
-        loadCart(() => {
-            resolve('V2');
-        })
-    })
+    loadProductsFetch()
+    ,
+    loadCartFetch()
 ]).then((values) => { //values to get both parameters in the form of an array
     renderOrderSummary();
     renderItemPaymentSummary();

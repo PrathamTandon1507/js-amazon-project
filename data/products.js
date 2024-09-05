@@ -76,6 +76,40 @@ class Appliance extends Product{
 }
 
 export let products = [];
+//response.json() is also asynchronous (returns a promise like fetch())
+ //fetch() directly sends request to backend [basically does what GET and send were doing]
+export function loadProductsFetch(){
+  const promise = fetch( 'https://supersimplebackend.dev/products')
+  .then((response) => {
+    return response.json(); //[already did JSON.parse() so returns an object not a JSON string]
+  
+  }).then((prodData) => {
+    products = prodData.map((productDetails) => { //add map code [for classes] in front [just like products array]
+      if (productDetails.type === 'clothing'){
+        return new Clothing(productDetails);
+      }
+      else{
+        let tempProductDetails=''
+        let temp = productDetails.keywords 
+        temp.forEach((itemType) => {
+          if(itemType === 'appliances'){
+            tempProductDetails = itemType;
+          }
+        });
+        if(tempProductDetails) return new Appliance(productDetails);
+      }
+      return new Product(productDetails); //each object is returned after being passed to the constructor
+    });
+    console.log('load products');
+  });
+  return promise;
+}
+/*
+loadProductsFetch().then(() => { //returns a promise so we can add new steps here too
+  console.log('next step');
+});
+
+*/
 
 export function loadProducts(fun){ // this is a callback [function that will be called in the future]
   const xhr = new XMLHttpRequest();
@@ -103,6 +137,14 @@ export function loadProducts(fun){ // this is a callback [function that will be 
 
   xhr.open('GET', 'https://supersimplebackend.dev/products'); //load products info from backend
   xhr.send(); //send request
+}
+
+export function loadCartFetch(){
+  const promise = fetch('https://supersimplebackend.dev/products')
+  .then((respone) => {
+    console.log('load cart');
+  });
+  return promise;
 }
 
 export function loadCart(fun){ // this is a callback [function that will be called in the future]

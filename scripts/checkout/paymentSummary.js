@@ -47,11 +47,36 @@ export function renderItemPaymentSummary(){
             <div class="payment-summary-money js-total-payment-summary">$${formatCurrency(orderTotal)}</div>
           </div>
 
-          <button class="place-order-button button-primary">
+          <button class="place-order-button button-primary js-place-order-button">
             Place your order
           </button>`
     document.querySelector('.js-payment-summary').innerHTML = paymentHTML;
+
+    const placeOrder = document.querySelector('.js-place-order-button');
+    
+    placeOrder.addEventListener('click', async () => {
+        try{
+            const response = await fetch('https://supersimplebackend.dev/orders',{
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    cart: cart
+                })
+            });
+            const order = await response.json(); //because response.json() is also a promise
+
+            addOrder(order);
+        }
+        catch{
+            console.log('Unexpected error in getting order');
+        }
+
+        window.location.href='orders.html'; //changed window location 
+    });
 }
+
 
 
 
